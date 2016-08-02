@@ -1,0 +1,14 @@
+#!/bin/bash
+RND_DELAY=3600
+set -x
+cd /opt/ivan-cache 
+while true
+do
+  mplayer special/announce.wav
+  mplayer special/Achtung\,+es+erfolgt+eine+Durchsage\!_klara.wav
+  file=`ls sounds |sort -R |tail -n 1`
+  mplayer sounds/$file
+  [ ! "${1:-}" = "-d" ] && exit 0   # break if not daemonized
+  sleep $((${RANDOM}%${RND_DELAY}))
+done
+
